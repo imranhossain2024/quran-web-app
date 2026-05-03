@@ -19,7 +19,7 @@ const SettingsPanel = () => {
       {/* Settings Toggle Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-8 right-8 w-14 h-14 bg-emerald-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/40 hover:scale-110 transition-all z-40 group"
+        className="fixed bottom-24 md:bottom-8 right-8 w-14 h-14 bg-emerald-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/40 hover:scale-110 transition-all z-40 group"
       >
         <SettingsIcon className="w-6 h-6 group-hover:rotate-90 transition-transform duration-500" />
       </button>

@@ -1,8 +1,12 @@
+"use client";
+
 import React from "react";
 import { Search, Globe, Settings, Heart, MapPin, Calendar, Clock, Play, SkipBack, SkipForward, Repeat, Volume2, MoreHorizontal, BookOpen } from "lucide-react";
 import Link from "next/link";
+import { useSearch } from "@/context/SearchContext";
 
 export default function Home() {
+  const { openSearch } = useSearch();
   return (
     <div className="min-h-screen bg-[#050805] text-white font-sans relative overflow-x-hidden">
       {/* Background Decorative Elements */}
@@ -16,7 +20,7 @@ export default function Home() {
       </div>
 
       {/* Top Navigation */}
-      <nav className="flex items-center justify-between px-8 py-4 bg-[#050805]/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/5">
+      <nav className="flex items-center justify-between px-8 py-4 bg-[#050805]/90 backdrop-blur-xl fixed top-0 left-0 right-0 z-[60] border-b border-white/5">
         <div className="flex items-center gap-3">
           <Link href="/" className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20">
              <span className="text-2xl">📖</span>
@@ -35,19 +39,21 @@ export default function Home() {
           <Link href="#" className="text-sm font-medium text-slate-400 hover:text-emerald-500 transition-colors">Others</Link>
         </div>
 
-        <div className="flex items-center gap-4">
-          <button className="p-2 text-slate-400 hover:text-emerald-500 transition-colors"><Globe className="w-5 h-5" /></button>
+        <div className="flex items-center gap-2">
+          <button 
+            onClick={openSearch}
+            className="p-2 text-slate-400 hover:text-emerald-500 transition-colors"
+          >
+            <Search className="w-5 h-5" />
+          </button>
           <Link href="/settings" className="p-2 text-slate-400 hover:text-emerald-500 transition-colors">
             <Settings className="w-5 h-5" />
           </Link>
-          <button className="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded-full text-sm font-bold shadow-lg shadow-emerald-600/20 transition-all flex items-center gap-2">
-            Support Us <span>🤍</span>
-          </button>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-16 pb-12 text-center px-4">
+      <section className="pt-32 pb-12 text-center px-4">
         <div className="flex items-center justify-center gap-4 mb-6">
           <span className="text-5xl lg:text-7xl animate-pulse">🌙</span>
           <h2 className="text-5xl lg:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">

@@ -46,14 +46,21 @@ export async function getSurahDetails(id: number): Promise<{ surah: Surah; ayahs
 }
 
 export async function searchAyahs(query: string): Promise<any[]> {
-  if (!query || query.length < 3) return [];
+  if (!query || query.trim().length < 3) return [];
   try {
-    const res = await fetch(`${BASE_URL}/search/${query}/all/en.asad`);
-    if (!res.ok) throw new Error("Search failed");
+    const encodedQuery = encodeURIComponent(query.trim());
+    const res = await fetch(`${BASE_URL}/search/${encodedQuery}/all/en.asad`);
+    
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("API Search Error:", errorData);
+      return [];
+    }
+    
     const data = await res.json();
     return data.data.matches || [];
   } catch (error) {
-    console.error("Search error:", error);
+    console.error("Network or Search error:", error);
     return [];
   }
 }

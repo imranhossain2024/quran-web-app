@@ -2,6 +2,8 @@ import { getSurahDetails, getSurahList } from "@/lib/quran-api";
 import { notFound } from "next/navigation";
 import React from "react";
 import PlayAudioButton from "@/components/modules/quran/PlayAudioButton";
+import JumpToAyah from "@/components/modules/quran/JumpToAyah";
+import AyahNumber from "@/components/ui/AyahNumber";
 
 export async function generateStaticParams() {
   const surahs = await getSurahList();
@@ -21,7 +23,7 @@ export default async function SurahPage({ params }: PageProps) {
     const { surah, ayahs } = await getSurahDetails(parseInt(id));
 
     return (
-      <div className="p-6 lg:p-10 max-w-5xl mx-auto mb-20">
+      <div className="p-6 lg:p-10 max-w-5xl mx-auto mb-20 relative">
         {/* Surah Header Card */}
         <div className="relative overflow-hidden rounded-3xl bg-emerald-600 p-8 lg:p-12 text-white mb-10 shadow-2xl shadow-emerald-500/20">
           <div className="absolute right-0 top-0 opacity-10 pointer-events-none translate-x-1/4 -translate-y-1/4">
@@ -54,6 +56,13 @@ export default async function SurahPage({ params }: PageProps) {
           </div>
         </div>
 
+        {/* Action Bar (Jump to Ayah) */}
+        <div className="sticky top-20 z-30 flex justify-center mb-10 pointer-events-none">
+           <div className="pointer-events-auto">
+              <JumpToAyah totalAyahs={surah.numberOfAyahs} />
+           </div>
+        </div>
+
         {/* Bismillah */}
         {parseInt(id) !== 1 && parseInt(id) !== 9 && (
           <div className="text-center mb-16">
@@ -69,15 +78,13 @@ export default async function SurahPage({ params }: PageProps) {
             <div 
               key={ayah.id} 
               id={`ayah-${ayah.numberInSurah}`}
-              className="group p-8 rounded-3xl bg-slate-900/40 border border-slate-800/50 hover:bg-slate-900/60 hover:border-emerald-500/20 transition-all duration-300 shadow-sm"
+              className="group p-8 rounded-3xl bg-slate-900/40 border border-slate-800/50 hover:bg-slate-900/60 hover:border-emerald-500/20 transition-all duration-300 shadow-sm scroll-mt-32"
             >
               <div className="flex flex-col gap-8">
                 {/* Ayah Meta & Action */}
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-4">
-                     <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-sm font-bold text-slate-400 group-hover:bg-emerald-500/10 group-hover:text-emerald-500 transition-colors">
-                       {ayah.numberInSurah}
-                     </div>
+                     <AyahNumber number={ayah.numberInSurah} />
                      <PlayAudioButton url={ayah.audio} />
                   </div>
                   
