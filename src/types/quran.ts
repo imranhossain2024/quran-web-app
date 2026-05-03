@@ -24,3 +24,7 @@ export interface Settings {
   translationFontSize: number;
   theme: "light" | "dark";
 }
+export interface SearchResult {
+  surah: Surah;
+  ayah: Ayah;
+}

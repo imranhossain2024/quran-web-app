@@ -1,4 +1,4 @@
-import { Surah, Ayah } from "@/types/quran";
+import { Surah, Ayah, SearchResult } from "@/types/quran";
 import { getAllSurahs, getSurah } from "./quran";
 
 export async function getSurahList(): Promise<Surah[]> {
@@ -11,11 +11,11 @@ export async function getSurahDetails(id: number): Promise<{ surah: Surah; ayahs
   return data;
 }
 
-export async function searchAyahs(query: string): Promise<any[]> {
+export async function searchAyahs(query: string): Promise<SearchResult[]> {
   if (!query || query.trim().length < 3) return [];
   
   const allSurahs = getAllSurahs();
-  const matches: any[] = [];
+  const matches: SearchResult[] = [];
   
   for (const s of allSurahs) {
     const details = getSurah(s.number);
