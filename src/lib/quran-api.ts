@@ -1,8 +1,6 @@
 import { Surah, Ayah } from "@/types/quran";
 import { getAllSurahs, getSurah } from "./quran";
 
-const BASE_URL = "https://api.alquran.cloud/v1";
-
 export async function getSurahList(): Promise<Surah[]> {
   return getAllSurahs();
 }
@@ -15,16 +13,24 @@ export async function getSurahDetails(id: number): Promise<{ surah: Surah; ayahs
 
 export async function searchAyahs(query: string): Promise<any[]> {
   if (!query || query.trim().length < 3) return [];
-  try {
-    const encodedQuery = encodeURIComponent(query.trim());
-    const res = await fetch(`${BASE_URL}/search/${encodedQuery}/all/en.asad`, { next: { revalidate: 3600 } });
+  
+  const allSurahs = getAllSurahs();
+  const matches: any[] = [];
+  
+  for (const s of allSurahs) {
+    const details = getSurah(s.number);
+    if (!details) continue;
     
-    if (!res.ok) return [];
-    
-    const data = await res.json();
-    return data.data.matches || [];
-  } catch (error) {
-    console.error("Search error:", error);
-    return [];
+    for (const ayah of details.ayahs) {
+      if (ayah.translation.toLowerCase().includes(query.toLowerCase())) {
+        matches.push({
+          surah: details.surah,
+          ayah: ayah
+        });
+      }
+    }
+    if (matches.length >= 20) break; // Limit search results
   }
+  
+  return matches;
 }

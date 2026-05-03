@@ -40,7 +40,7 @@ export function getSurah(id: number): { surah: Surah; ayahs: Ayah[] } | null {
       id: absoluteNumber,
       surahId: id,
       numberInSurah: v.id,
-      juz: 0, // Juz information is not available in this simplified JSON
+      juz: 0, 
       text: v.text,
       translation: v.translation,
       audio: `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${absoluteNumber}.mp3`,
