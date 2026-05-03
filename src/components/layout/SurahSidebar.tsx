@@ -31,7 +31,7 @@ const SurahSidebar = () => {
   );
 
   return (
-    <div className="w-80 border-r border-slate-800/50 bg-slate-900/50 h-screen fixed left-16 top-0 hidden lg:flex flex-col overflow-hidden">
+    <div className="w-80 border-r border-slate-800/50 bg-slate-900/50 h-screen fixed left-16 top-0 hidden md:flex flex-col overflow-hidden">
       <div className="p-6 border-b border-slate-800/50 bg-slate-900/80 backdrop-blur-md z-10">
         <h2 className="text-xl font-bold text-white tracking-tight">Surah List</h2>
         <div className="mt-4 relative">

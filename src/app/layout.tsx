@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Amiri, Lateef } from "next/font/google";
 import "./globals.css";
-import IconSidebar from "@/components/layout/IconSidebar";
-import SurahSidebar from "@/components/layout/SurahSidebar";
 import SettingsPanel from "@/components/layout/SettingsPanel";
+import LayoutWrapper from "@/components/layout/LayoutWrapper";
 import { SettingsProvider } from "@/context/SettingsContext";
+import { SearchProvider } from "@/context/SearchContext";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({ weight: ["400", "700"], subsets: ["arabic"], variable: "--font-amiri" });
@@ -22,21 +22,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`h-full dark ${amiri.variable} ${lateef.variable}`}>
-      <body className={`${inter.className} min-h-full flex bg-slate-950 text-slate-50 antialiased`}>
+      <body className={`${inter.className} min-h-full bg-slate-950 text-slate-50 antialiased`}>
         <SettingsProvider>
-          {/* Left Icon Sidebar */}
-          <IconSidebar />
-          
-          {/* Middle Surah Sidebar */}
-          <SurahSidebar />
-          
-          {/* Main Content Area */}
-          <main className="flex-1 min-h-screen md:ml-16 lg:ml-[24rem] transition-all duration-300">
-            {children}
-          </main>
+          <SearchProvider>
+            <LayoutWrapper>
+              {children}
+            </LayoutWrapper>
 
-          {/* Settings Panel Toggle & Sidebar */}
-          <SettingsPanel />
+            {/* Settings Panel Toggle & Sidebar */}
+            <SettingsPanel />
+          </SearchProvider>
         </SettingsProvider>
       </body>
     </html>

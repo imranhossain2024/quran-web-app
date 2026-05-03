@@ -44,3 +44,16 @@ export async function getSurahDetails(id: number): Promise<{ surah: Surah; ayahs
     throw error;
   }
 }
+
+export async function searchAyahs(query: string): Promise<any[]> {
+  if (!query || query.length < 3) return [];
+  try {
+    const res = await fetch(`${BASE_URL}/search/${query}/all/en.asad`);
+    if (!res.ok) throw new Error("Search failed");
+    const data = await res.json();
+    return data.data.matches || [];
+  } catch (error) {
+    console.error("Search error:", error);
+    return [];
+  }
+}
