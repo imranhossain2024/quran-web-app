@@ -15,7 +15,7 @@ const IconSidebar = () => {
     { icon: Search, label: "Search", onClick: openSearch },
     { icon: Heart, label: "Favorites" },
     { icon: Settings, label: "Settings", href: "/settings" },
-    { icon: Info, label: "About" },
+    { icon: Info, label: "About", href: "/about" },
   ];
 
   return (

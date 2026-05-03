@@ -4,9 +4,11 @@ import React from "react";
 import { Search, Globe, Settings, Heart, MapPin, Calendar, Clock, Play, SkipBack, SkipForward, Repeat, Volume2, MoreHorizontal, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { useSearch } from "@/context/SearchContext";
+import EidCountdown from "@/components/modules/home/EidCountdown";
 
 export default function Home() {
   const { openSearch } = useSearch();
+
   return (
     <div className="min-h-screen bg-[#050805] text-white font-sans relative overflow-x-hidden">
       {/* Background Decorative Elements */}
@@ -35,7 +37,7 @@ export default function Home() {
           <Link href="/" className="text-sm font-medium text-emerald-500">Home</Link>
           <Link href="/surah/1" className="text-sm font-medium text-slate-400 hover:text-emerald-500 transition-colors">Read Quran</Link>
           <Link href="#" className="text-sm font-medium text-slate-400 hover:text-emerald-500 transition-colors">Prayer Time</Link>
-          <Link href="#" className="text-sm font-medium text-slate-400 hover:text-emerald-500 transition-colors">Ramadan 2026</Link>
+          <Link href="#" className="text-sm font-medium text-slate-400 hover:text-emerald-500 transition-colors">Eid 2026</Link>
           <Link href="#" className="text-sm font-medium text-slate-400 hover:text-emerald-500 transition-colors">Others</Link>
         </div>
 
@@ -57,7 +59,7 @@ export default function Home() {
         <div className="flex items-center justify-center gap-4 mb-6">
           <span className="text-5xl lg:text-7xl animate-pulse">🌙</span>
           <h2 className="text-5xl lg:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-            Ramadan Mubarak 2026
+            Eid-ul-Adha Mubarak
           </h2>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-slate-400 font-bold uppercase tracking-[0.2em] text-xs">
@@ -67,68 +69,44 @@ export default function Home() {
           </div>
           <span className="hidden md:inline text-slate-700">|</span>
           <div className="flex items-center gap-2">
-            Dhu al-Qi'dah 16, 1447
+            Dhul Hijjah 14, 1447
           </div>
         </div>
       </section>
 
       {/* Countdown Section */}
       <section className="max-w-4xl mx-auto px-4 mb-10">
-        <div className="bg-[#111111]/60 border border-white/5 rounded-[2.5rem] p-8 lg:p-12 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-8 opacity-10">
-             <Calendar className="w-12 h-12 text-emerald-500" />
-          </div>
-          
-          <h3 className="text-center text-xl font-bold uppercase tracking-[0.3em] mb-12 flex items-center justify-center gap-3">
-             <span>⏳</span> RAMADAN COUNTDOWN
-          </h3>
-
-          <div className="grid grid-cols-4 gap-4 lg:gap-8">
-            {[
-              { label: "Days", value: "280" },
-              { label: "Hours", value: "05" },
-              { label: "Mins", value: "55" },
-              { label: "Secs", value: "20" },
-            ].map((unit, idx) => (
-              <div key={idx} className="flex flex-col items-center">
-                <div className="text-5xl lg:text-7xl font-black text-white mb-4 bg-slate-900/50 w-full py-8 rounded-3xl border border-white/5 shadow-inner flex items-center justify-center">
-                  {unit.value}
-                </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{unit.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <EidCountdown />
       </section>
 
-      {/* Sehri & Iftar Cards */}
+      {/* Prayer Time Cards (Mockup for design) */}
       <section className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 mb-32">
-        {/* Sehri Card */}
+        {/* Card 1 */}
         <div className="bg-[#111111]/80 border border-white/5 rounded-[2.5rem] p-10 relative overflow-hidden group hover:border-emerald-500/20 transition-all duration-500">
            <div className="absolute -right-8 -top-8 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-all" />
            <div className="flex flex-col items-center text-center">
               <div className="flex items-center gap-2 text-emerald-500 text-xs font-bold uppercase tracking-widest mb-8">
-                 <span>☀️</span> TODAY'S SEHRI TIME IN SATKHIRA
+                 <span>🕌</span> NEXT PRAYER: DHUHR
               </div>
-              <div className="text-6xl font-black text-emerald-500 mb-10 tracking-tighter">04:00 AM</div>
-              <p className="text-2xl font-arabic mb-6 leading-relaxed text-slate-200">وَبِصَوْمِ غَدٍ نَّوَيْتُ مِنْ شَهْرِ رَمَضَانَ</p>
+              <div className="text-6xl font-black text-emerald-500 mb-10 tracking-tighter">12:05 PM</div>
+              <p className="text-2xl font-arabic mb-6 leading-relaxed text-slate-200">حَافِظُوا عَلَى الصَّلَوَاتِ وَالصَّلَاةِ الْوُسْطَىٰ</p>
               <p className="text-xs text-slate-500 italic max-w-xs mx-auto leading-relaxed">
-                I intend to keep the fast for tomorrow in the month of Ramadan
+                Guard strictly your prayers, especially the middle prayer.
               </p>
            </div>
         </div>
 
-        {/* Iftar Card */}
+        {/* Card 2 */}
         <div className="bg-[#111111]/80 border border-white/5 rounded-[2.5rem] p-10 relative overflow-hidden group hover:border-emerald-500/20 transition-all duration-500">
            <div className="absolute -right-8 -top-8 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-all" />
            <div className="flex flex-col items-center text-center">
               <div className="flex items-center gap-2 text-emerald-500 text-xs font-bold uppercase tracking-widest mb-8">
-                 <span>🌙</span> TODAY'S IFTAR TIME IN SATKHIRA
+                 <span>☀️</span> SUNRISE TODAY
               </div>
-              <div className="text-6xl font-black text-emerald-500 mb-10 tracking-tighter">06:32 PM</div>
-              <p className="text-2xl font-arabic mb-6 leading-relaxed text-slate-200">اللَّهُمَّ إِنِّي لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ</p>
+              <div className="text-6xl font-black text-emerald-500 mb-10 tracking-tighter">05:22 AM</div>
+              <p className="text-2xl font-arabic mb-6 leading-relaxed text-slate-200">وَالشَّمْسِ وَضُحَاهَا</p>
               <p className="text-xs text-slate-500 italic max-w-xs mx-auto leading-relaxed">
-                O Allah, I fasted for You and I believe in You and I break my fast with Your sustenance
+                By the sun and its brightness.
               </p>
            </div>
         </div>

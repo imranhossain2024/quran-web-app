@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Home, BookOpen, Search, Settings, Menu } from "lucide-react";
+import { Home, BookOpen, Search, Settings, Menu, Info } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ const MobileNav = () => {
     { icon: BookOpen, label: "Read", href: "/surah/1" },
     { icon: Search, label: "Search", onClick: openSearch },
     { icon: Settings, label: "Settings", href: "/settings" },
-    { icon: Menu, label: "Menu", isAction: true },
+    { icon: Info, label: "About", href: "/about" },
   ];
 
   return (
@@ -36,7 +36,7 @@ const MobileNav = () => {
           );
         }
 
-        if (item.isAction || item.onClick) {
+        if (item.onClick) {
           return (
             <button 
               key={idx}
