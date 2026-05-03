@@ -16,30 +16,43 @@ export async function getSurahList(): Promise<Surah[]> {
 
 export async function getSurahDetails(id: number): Promise<{ surah: Surah; ayahs: Ayah[] }> {
   try {
-    const [arabicRes, translationRes] = await Promise.all([
-      fetch(`${BASE_URL}/surah/${id}/quran-uthmani`),
-      fetch(`${BASE_URL}/surah/${id}/en.asad`)
-    ]);
+    // Fetching both Arabic (uthmani) and English (asad) in a single request
+    const res = await fetch(`${BASE_URL}/surah/${id}/editions/quran-uthmani,en.asad`);
+    
+    if (!res.ok) {
+      throw new Error(`Failed to fetch surah ${id} from API`);
+    }
 
-    const arabicData = await arabicRes.json();
-    const translationData = await translationRes.json();
+    const json = await res.json();
+    const data = json.data;
 
-    if (!arabicData.data || !translationData.data) {
+    // data[0] is arabic, data[1] is translation
+    if (!data || data.length < 2) {
       throw new Error(`Data missing for surah ${id}`);
     }
 
-    const ayahs: Ayah[] = arabicData.data.ayahs.map((ayah: any, index: number) => ({
+    const arabicSurah = data[0];
+    const translationSurah = data[1];
+
+    const ayahs: Ayah[] = arabicSurah.ayahs.map((ayah: any, index: number) => ({
       id: ayah.number,
       surahId: id,
       numberInSurah: ayah.numberInSurah,
       juz: ayah.juz,
       text: ayah.text,
-      translation: translationData.data.ayahs[index]?.text || "Translation missing",
+      translation: translationSurah.ayahs[index]?.text || "Translation not available",
       audio: `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${ayah.number}.mp3`,
     }));
 
     return {
-      surah: arabicData.data,
+      surah: {
+        number: arabicSurah.number,
+        name: arabicSurah.name,
+        englishName: arabicSurah.englishName,
+        englishNameTranslation: arabicSurah.englishNameTranslation,
+        numberOfAyahs: arabicSurah.numberOfAyahs,
+        revelationType: arabicSurah.revelationType,
+      },
       ayahs
     };
   } catch (error) {
