@@ -13,7 +13,7 @@ const MobileNav = () => {
 
   const navItems = [
     { icon: Home, label: "Home", href: "/" },
-    { icon: BookOpen, label: "Read", href: "/surah/1" },
+    { icon: BookOpen, label: "Read", href: "/read" },
     { icon: Search, label: "Search", onClick: openSearch },
     { icon: Settings, label: "Settings", href: "/settings" },
     { icon: Info, label: "About", href: "/about" },

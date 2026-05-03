@@ -11,9 +11,9 @@ const IconSidebar = () => {
   
   const menuItems = [
     { icon: Home, label: "Home", href: "/" },
-    { icon: Book, label: "Read", href: "/surah/1" },
+    { icon: Book, label: "Read", href: "/read" },
     { icon: Search, label: "Search", onClick: openSearch },
-    { icon: Heart, label: "Favorites" },
+    { icon: Heart, label: "Favorites", href: "/favorites" },
     { icon: Settings, label: "Settings", href: "/settings" },
     { icon: Info, label: "About", href: "/about" },
   ];

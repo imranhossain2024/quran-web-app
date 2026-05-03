@@ -5,6 +5,7 @@ import SettingsPanel from "@/components/layout/SettingsPanel";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 import { SettingsProvider } from "@/context/SettingsContext";
 import { SearchProvider } from "@/context/SearchContext";
+import { FavoritesProvider } from "@/context/FavoritesContext";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({ weight: ["400", "700"], subsets: ["arabic"], variable: "--font-amiri" });
@@ -25,12 +26,14 @@ export default function RootLayout({
       <body className={`${inter.className} min-h-full bg-slate-950 text-slate-50 antialiased`}>
         <SettingsProvider>
           <SearchProvider>
-            <LayoutWrapper>
-              {children}
-            </LayoutWrapper>
+            <FavoritesProvider>
+              <LayoutWrapper>
+                {children}
+              </LayoutWrapper>
 
-            {/* Settings Panel Toggle & Sidebar */}
-            <SettingsPanel />
+              {/* Settings Panel Toggle & Sidebar */}
+              <SettingsPanel />
+            </FavoritesProvider>
           </SearchProvider>
         </SettingsProvider>
       </body>

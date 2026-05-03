@@ -4,6 +4,7 @@ import React from "react";
 import PlayAudioButton from "@/components/modules/quran/PlayAudioButton";
 import JumpToAyah from "@/components/modules/quran/JumpToAyah";
 import AyahNumber from "@/components/ui/AyahNumber";
+import FavoriteButton from "@/components/modules/quran/FavoriteButton";
 
 export async function generateStaticParams() {
   const surahs = await getSurahList();
@@ -86,6 +87,11 @@ export default async function SurahPage({ params }: PageProps) {
                   <div className="flex items-center gap-4">
                      <AyahNumber number={ayah.numberInSurah} />
                      <PlayAudioButton url={ayah.audio} />
+                     <FavoriteButton 
+                        ayah={ayah} 
+                        surahName={surah.englishName} 
+                        surahNumber={surah.number} 
+                     />
                   </div>
                   
                   {/* Arabic Text (Right Aligned) */}
