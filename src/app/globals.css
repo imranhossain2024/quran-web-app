@@ -31,4 +31,13 @@ body {
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #334155;
   }
+
+  .font-arabic {
+    font-family: var(--arabic-font);
+    font-size: var(--arabic-font-size);
+  }
+
+  .font-translation {
+    font-size: var(--translation-font-size);
+  }
 }

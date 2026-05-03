@@ -1,11 +1,10 @@
 export interface Surah {
-  id: number;
+  number: number;
   name: string;
   englishName: string;
   englishNameTranslation: string;
-  arabicName: string;
-  revelationType: "Meccan" | "Medinan";
   numberOfAyahs: number;
+  revelationType: "Meccan" | "Medinan";
 }
 
 export interface Ayah {
