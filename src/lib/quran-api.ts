@@ -2,10 +2,33 @@ import { Surah, Ayah } from "@/types/quran";
 
 const BASE_URL = "https://api.alquran.cloud/v1";
 
+// Improved utility function for fetching with more retries and longer backoff
+async function fetchWithRetry(url: string, retries = 5, backoff = 2000): Promise<Response> {
+  for (let i = 0; i < retries; i++) {
+    try {
+      // Use Next.js fetch with revalidation
+      const res = await fetch(url, { next: { revalidate: 3600 } });
+      if (res.ok) return res;
+      
+      if (res.status === 429 || res.status >= 500) { 
+        const wait = backoff * (i + 1);
+        console.warn(`API Busy/Error (${res.status}) for ${url}. Retrying in ${wait}ms...`);
+        await new Promise(resolve => setTimeout(resolve, wait));
+        continue;
+      }
+      return res; // Return other non-ok responses
+    } catch (error) {
+      if (i === retries - 1) throw error;
+      const wait = backoff * (i + 1);
+      await new Promise(resolve => setTimeout(resolve, wait));
+    }
+  }
+  throw new Error(`Failed to fetch ${url} after ${retries} retries`);
+}
+
 export async function getSurahList(): Promise<Surah[]> {
   try {
-    const res = await fetch(`${BASE_URL}/surah`);
-    if (!res.ok) throw new Error("Failed to fetch surahs");
+    const res = await fetchWithRetry(`${BASE_URL}/surah`);
     const data = await res.json();
     return data.data;
   } catch (error) {
@@ -16,17 +39,10 @@ export async function getSurahList(): Promise<Surah[]> {
 
 export async function getSurahDetails(id: number): Promise<{ surah: Surah; ayahs: Ayah[] }> {
   try {
-    // Fetching both Arabic (uthmani) and English (asad) in a single request
-    const res = await fetch(`${BASE_URL}/surah/${id}/editions/quran-uthmani,en.asad`);
-    
-    if (!res.ok) {
-      throw new Error(`Failed to fetch surah ${id} from API`);
-    }
-
+    const res = await fetchWithRetry(`${BASE_URL}/surah/${id}/editions/quran-uthmani,en.asad`);
     const json = await res.json();
     const data = json.data;
 
-    // data[0] is arabic, data[1] is translation
     if (!data || data.length < 2) {
       throw new Error(`Data missing for surah ${id}`);
     }
@@ -65,18 +81,14 @@ export async function searchAyahs(query: string): Promise<any[]> {
   if (!query || query.trim().length < 3) return [];
   try {
     const encodedQuery = encodeURIComponent(query.trim());
-    const res = await fetch(`${BASE_URL}/search/${encodedQuery}/all/en.asad`);
+    const res = await fetch(`${BASE_URL}/search/${encodedQuery}/all/en.asad`, { next: { revalidate: 3600 } });
     
-    if (!res.ok) {
-      const errorData = await res.json();
-      console.error("API Search Error:", errorData);
-      return [];
-    }
+    if (!res.ok) return [];
     
     const data = await res.json();
     return data.data.matches || [];
   } catch (error) {
-    console.error("Network or Search error:", error);
+    console.error("Search error:", error);
     return [];
   }
 }
