@@ -28,3 +28,18 @@ export interface SearchResult {
   surah: Surah;
   ayah: Ayah;
 }
+export interface RawAyah {
+  id: number;
+  text: string;
+  translation?: string;
+}
+
+export interface RawSurah {
+  id: number;
+  name: string;
+  transliteration: string;
+  type: string;
+  total_verses: number;
+  translation?: string;
+  verses: RawAyah[];
+}

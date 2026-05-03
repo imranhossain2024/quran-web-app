@@ -1,14 +1,14 @@
 import quranData from "../../public/quran.json";
-import { Surah, Ayah } from "@/types/quran";
+import { Surah, Ayah, RawSurah, RawAyah } from "@/types/quran";
 
-const quran = quranData as any[];
+const quran = quranData as RawSurah[];
 
 export function getAllSurahs(): Surah[] {
   return quran.map((s) => ({
     number: s.id,
     name: s.name,
     englishName: s.transliteration,
-    englishNameTranslation: s.translation,
+    englishNameTranslation: s.translation || "",
     numberOfAyahs: s.total_verses,
     revelationType: s.type === "meccan" ? "Meccan" : "Medinan",
   }));
@@ -29,12 +29,12 @@ export function getSurah(id: number): { surah: Surah; ayahs: Ayah[] } | null {
     number: s.id,
     name: s.name,
     englishName: s.transliteration,
-    englishNameTranslation: s.translation,
+    englishNameTranslation: s.translation || "",
     numberOfAyahs: s.total_verses,
     revelationType: s.type === "meccan" ? "Meccan" : "Medinan",
   };
 
-  const ayahs: Ayah[] = s.verses.map((v: any) => {
+  const ayahs: Ayah[] = s.verses.map((v: RawAyah) => {
     const absoluteNumber = absoluteAyahOffset + v.id;
     return {
       id: absoluteNumber,
@@ -42,7 +42,7 @@ export function getSurah(id: number): { surah: Surah; ayahs: Ayah[] } | null {
       numberInSurah: v.id,
       juz: 0, 
       text: v.text,
-      translation: v.translation,
+      translation: v.translation || "",
       audio: `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${absoluteNumber}.mp3`,
     };
   });
