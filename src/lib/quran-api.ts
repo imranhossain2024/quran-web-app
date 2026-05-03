@@ -16,7 +16,6 @@ export async function getSurahList(): Promise<Surah[]> {
 
 export async function getSurahDetails(id: number): Promise<{ surah: Surah; ayahs: Ayah[] }> {
   try {
-    // Fetching translation and arabic text
     const [arabicRes, translationRes] = await Promise.all([
       fetch(`${BASE_URL}/surah/${id}/quran-uthmani`),
       fetch(`${BASE_URL}/surah/${id}/en.asad`)
@@ -25,13 +24,17 @@ export async function getSurahDetails(id: number): Promise<{ surah: Surah; ayahs
     const arabicData = await arabicRes.json();
     const translationData = await translationRes.json();
 
+    if (!arabicData.data || !translationData.data) {
+      throw new Error(`Data missing for surah ${id}`);
+    }
+
     const ayahs: Ayah[] = arabicData.data.ayahs.map((ayah: any, index: number) => ({
       id: ayah.number,
       surahId: id,
       numberInSurah: ayah.numberInSurah,
       juz: ayah.juz,
       text: ayah.text,
-      translation: translationData.data.ayahs[index].text,
+      translation: translationData.data.ayahs[index]?.text || "Translation missing",
       audio: `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${ayah.number}.mp3`,
     }));
 
