@@ -15,7 +15,7 @@ const MobileNav = () => {
     { icon: Home, label: "Home", href: "/" },
     { icon: BookOpen, label: "Read", href: "/surah/1" },
     { icon: Search, label: "Search", onClick: openSearch },
-    { icon: Settings, label: "Settings", isAction: true },
+    { icon: Settings, label: "Settings", href: "/settings" },
     { icon: Menu, label: "Menu", isAction: true },
   ];
 

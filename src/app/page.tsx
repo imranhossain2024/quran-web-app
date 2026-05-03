@@ -37,7 +37,9 @@ export default function Home() {
 
         <div className="flex items-center gap-4">
           <button className="p-2 text-slate-400 hover:text-emerald-500 transition-colors"><Globe className="w-5 h-5" /></button>
-          <button className="p-2 text-slate-400 hover:text-emerald-500 transition-colors"><Settings className="w-5 h-5" /></button>
+          <Link href="/settings" className="p-2 text-slate-400 hover:text-emerald-500 transition-colors">
+            <Settings className="w-5 h-5" />
+          </Link>
           <button className="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded-full text-sm font-bold shadow-lg shadow-emerald-600/20 transition-all flex items-center gap-2">
             Support Us <span>🤍</span>
           </button>

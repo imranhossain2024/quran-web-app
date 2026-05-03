@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Home, Book, Search, Settings, Heart, Info } from "lucide-react";
 import { useSearch } from "@/context/SearchContext";
 import Link from "next/link";
@@ -14,7 +14,7 @@ const IconSidebar = () => {
     { icon: Book, label: "Read", href: "/surah/1" },
     { icon: Search, label: "Search", onClick: openSearch },
     { icon: Heart, label: "Favorites" },
-    { icon: Settings, label: "Settings" },
+    { icon: Settings, label: "Settings", href: "/settings" },
     { icon: Info, label: "About" },
   ];
 
