@@ -47,13 +47,13 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
       {/* Main Content Area */}
       <main className={cn(
         "flex-1 min-h-screen transition-all duration-300",
-        !isHomePage ? "md:ml-[24rem] pb-24 md:pb-0" : "w-full"
+        !isHomePage ? "md:ml-[24rem] pb-24 md:pb-0" : "w-full pb-24 md:pb-0"
       )}>
         {children}
       </main>
 
-      {/* Mobile Nav only on non-home pages or based on design */}
-      {!isHomePage && <MobileNav onMenuClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)} />}
+      {/* Mobile Nav on all pages */}
+      <MobileNav onMenuClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)} />
 
       {/* Scroll to Top FAB */}
       <ScrollToTop />
