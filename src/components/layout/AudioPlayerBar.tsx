@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { Play, Pause, SkipBack, SkipForward, Repeat, Volume2, VolumeX, Loader2 } from "lucide-react";
+import { Repeat, Volume2, VolumeX, Loader2, Play, Pause, SkipBack, SkipForward } from "lucide-react";
 import { useAudioPlayer } from "@/context/AudioPlayerContext";
+import FavoriteButton from "@/components/modules/quran/FavoriteButton";
 
 function formatTime(seconds: number) {
   if (!seconds || isNaN(seconds)) return "00:00";
@@ -65,7 +66,16 @@ export default function AudioPlayerBar() {
             <div className="text-sm font-bold truncate max-w-[200px]">
               {currentSurah.englishName} : {currentAyah.numberInSurah}
             </div>
-            <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Alafasy</div>
+            <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1 flex items-center gap-2">
+              <span>Alafasy</span>
+              <div className="scale-[0.6] origin-left -ml-1">
+                 <FavoriteButton 
+                    ayah={currentAyah} 
+                    surahName={currentSurah.englishName} 
+                    surahNumber={currentSurah.number} 
+                 />
+              </div>
+            </div>
           </div>
           <div className="md:hidden flex items-center gap-2">
              <button onClick={handleSpeedChange} className="text-xs font-mono font-bold text-slate-400 hover:text-white px-2 py-1 rounded bg-white/5">

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Home, BookOpen, Search, Settings, Menu, Info } from "lucide-react";
+import { Home, BookOpen, Search, Settings, Menu, Heart } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -21,7 +21,7 @@ const MobileNav = ({ onMenuClick }: MobileNavProps = {}) => {
     { icon: BookOpen, label: "Read", href: "/read" },
     { icon: Search, label: "Search", onClick: openSearch },
     { icon: Settings, label: "Settings", href: "/settings" },
-    { icon: Info, label: "About", href: "/about" },
+    { icon: Heart, label: "Favorites", href: "/favorites" },
   ];
 
   return (
