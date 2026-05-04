@@ -34,17 +34,22 @@ const SurahSidebar = () => {
     setSearch("");
   }, [activeTab]);
 
+  // Helper to normalize strings for search by removing spaces, hyphens, and apostrophes
+  const normalize = (str: string) => str.toLowerCase().replace(/[-'\s]/g, "");
+  const normalizedSearch = normalize(search);
+
   // ========== FILTERED DATA ==========
   const filteredSurahs = surahs.filter(
     (s) =>
-      s.englishName.toLowerCase().includes(search.toLowerCase()) ||
+      normalize(s.englishName).includes(normalizedSearch) ||
+      normalize(s.name).includes(normalizedSearch) ||
       s.number.toString().includes(search)
   );
 
   const filteredJuz = JUZ_DATA.filter(
     (j) =>
       j.number.toString().includes(search) ||
-      j.nameEn.toLowerCase().includes(search.toLowerCase())
+      normalize(j.nameEn).includes(normalizedSearch)
   );
 
   // Build page items: 1-604
