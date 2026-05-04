@@ -17,6 +17,7 @@ interface AudioPlayerContextType {
   playAyah: (ayah: Ayah) => void;
   pause: () => void;
   resume: () => void;
+  stop: () => void;
   nextAyah: () => void;
   prevAyah: () => void;
   seekTo: (percent: number) => void;
@@ -160,6 +161,17 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
     audioRef.current?.play().catch(console.error);
   };
 
+  const stop = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    setIsPlaying(false);
+    setCurrentAyah(null);
+    setCurrentSurah(null);
+    setProgress(0);
+  };
+
   const nextAyah = () => {
     if (!currentSurah || !currentAyah) return;
     
@@ -230,6 +242,7 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
         playAyah,
         pause,
         resume,
+        stop,
         nextAyah,
         prevAyah,
         seekTo,

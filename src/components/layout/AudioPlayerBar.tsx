@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Repeat, Volume2, VolumeX, Loader2, Play, Pause, SkipBack, SkipForward } from "lucide-react";
+import { Repeat, Volume2, VolumeX, Loader2, Play, Pause, SkipBack, SkipForward, X } from "lucide-react";
 import { useAudioPlayer } from "@/context/AudioPlayerContext";
 import FavoriteButton from "@/components/modules/quran/FavoriteButton";
 
@@ -25,6 +25,7 @@ export default function AudioPlayerBar() {
     repeatMode,
     pause,
     resume,
+    stop,
     nextAyah,
     prevAyah,
     seekTo,
@@ -83,6 +84,9 @@ export default function AudioPlayerBar() {
              </button>
              <button onClick={() => setVolume(volume > 0 ? 0 : 1)} className="text-slate-500 hover:text-white p-2">
                {volume === 0 ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+             </button>
+             <button onClick={stop} className="text-slate-500 hover:text-rose-500 p-2 ml-1" title="Close Player">
+               <X className="w-5 h-5" />
              </button>
           </div>
        </div>
@@ -162,6 +166,10 @@ export default function AudioPlayerBar() {
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg translate-x-1/2" />
                 </div>
              </div>
+             <div className="w-px h-6 bg-white/10 mx-1"></div>
+             <button onClick={stop} className="text-slate-500 hover:text-rose-500 transition-colors" title="Close Player">
+               <X className="w-5 h-5" />
+             </button>
           </div>
        </div>
     </div>
