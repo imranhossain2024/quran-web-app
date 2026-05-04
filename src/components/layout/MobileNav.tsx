@@ -7,11 +7,16 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useSearch } from "@/context/SearchContext";
 
-const MobileNav = () => {
+interface MobileNavProps {
+  onMenuClick?: () => void;
+}
+
+const MobileNav = ({ onMenuClick }: MobileNavProps = {}) => {
   const pathname = usePathname();
   const { openSearch } = useSearch();
 
   const navItems = [
+    { icon: Menu, label: "Menu", onClick: onMenuClick },
     { icon: Home, label: "Home", href: "/" },
     { icon: BookOpen, label: "Read", href: "/read" },
     { icon: Search, label: "Search", onClick: openSearch },
@@ -20,7 +25,7 @@ const MobileNav = () => {
   ];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-950/80 backdrop-blur-xl border-t border-slate-800/50 z-50 px-6 py-3 pb-8 flex justify-between items-center">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-950/80 backdrop-blur-xl border-t border-slate-800/50 z-50 px-4 sm:px-6 py-3 pb-8 flex justify-between items-center">
       {navItems.map((item, idx) => {
         const isActive = pathname === item.href;
         
@@ -41,7 +46,7 @@ const MobileNav = () => {
             <button 
               key={idx}
               onClick={item.onClick}
-              className="p-2 text-slate-500 hover:text-emerald-500 transition-colors"
+              className="p-1.5 sm:p-2 text-slate-500 hover:text-emerald-500 transition-colors"
             >
               <item.icon className="w-6 h-6" />
             </button>
@@ -53,7 +58,7 @@ const MobileNav = () => {
             key={idx} 
             href={item.href!} 
             className={cn(
-              "p-2 transition-colors",
+              "p-1.5 sm:p-2 transition-colors",
               isActive ? "text-emerald-500" : "text-slate-500 hover:text-slate-300"
             )}
           >

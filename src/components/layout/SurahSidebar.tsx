@@ -10,7 +10,12 @@ import { useParams } from "next/navigation";
 
 type FilterTab = "surah" | "juz" | "page";
 
-const SurahSidebar = () => {
+interface SurahSidebarProps {
+  className?: string;
+  onClose?: () => void;
+}
+
+const SurahSidebar = ({ className, onClose }: SurahSidebarProps = {}) => {
   const [surahs, setSurahs] = useState<Surah[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
@@ -71,7 +76,7 @@ const SurahSidebar = () => {
   };
 
   return (
-    <div className="w-80 border-r border-slate-800/50 bg-slate-900/50 h-screen fixed left-16 top-0 hidden md:flex flex-col overflow-hidden">
+    <div className={cn("w-80 border-r border-slate-800/50 bg-slate-900/50 h-screen flex flex-col overflow-hidden bg-slate-950", className)}>
       {/* Header */}
       <div className="p-6 pb-4 border-b border-slate-800/50 bg-slate-900/80 backdrop-blur-md z-10">
         <h2 className="text-xl font-bold text-white tracking-tight mb-4">
@@ -141,6 +146,7 @@ const SurahSidebar = () => {
                   <Link
                     key={surah.number}
                     href={`/surah/${surah.number}`}
+                    onClick={() => onClose && onClose()}
                     className={cn(
                       "flex items-center gap-4 p-4 hover:bg-slate-800/40 transition-all border-b border-slate-800/10 text-left group",
                       currentSurahNumber === surah.number &&
@@ -211,6 +217,7 @@ const SurahSidebar = () => {
                     <Link
                       key={juz.number}
                       href={`/surah/${juz.startSurah}#ayah-${juz.startAyah}`}
+                      onClick={() => onClose && onClose()}
                       className={cn(
                         "flex items-center gap-4 p-4 hover:bg-slate-800/40 transition-all border-b border-slate-800/10 text-left group",
                         isActive &&
@@ -288,6 +295,7 @@ const SurahSidebar = () => {
                       <Link
                         key={page}
                         href={`/surah/${surahOnPage}`}
+                        onClick={() => onClose && onClose()}
                         title={`Page ${page} · ${getSurahName(surahOnPage)}`}
                         className={cn(
                           "relative flex items-center justify-center h-10 rounded-lg text-xs font-semibold transition-all duration-200",

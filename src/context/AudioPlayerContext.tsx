@@ -12,6 +12,7 @@ interface AudioPlayerContextType {
   progress: number;
   duration: number;
   volume: number;
+  playbackRate: number;
   repeatMode: boolean;
   playAyah: (ayah: Ayah) => void;
   pause: () => void;
@@ -20,6 +21,7 @@ interface AudioPlayerContextType {
   prevAyah: () => void;
   seekTo: (percent: number) => void;
   setVolume: (val: number) => void;
+  setPlaybackRate: (rate: number) => void;
   toggleRepeat: () => void;
 }
 
@@ -33,6 +35,7 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolumeState] = useState(1);
+  const [playbackRate, setPlaybackRateState] = useState(1);
   const [repeatMode, setRepeatMode] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -115,6 +118,12 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
     }
   }, [volume]);
 
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.playbackRate = playbackRate;
+    }
+  }, [playbackRate]);
+
   const playAyah = (ayah: Ayah) => {
     if (!audioRef.current) return;
     
@@ -138,6 +147,7 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
     setCurrentAyah(ayah);
     setIsLoading(true);
     audio.src = ayah.audio;
+    audio.playbackRate = playbackRate;
     audio.load();
     audio.play().catch(console.error);
   };
@@ -197,6 +207,10 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
     setVolumeState(Math.max(0, Math.min(1, val)));
   };
 
+  const setPlaybackRate = (rate: number) => {
+    setPlaybackRateState(rate);
+  };
+
   const toggleRepeat = () => {
     setRepeatMode(prev => !prev);
   };
@@ -211,6 +225,7 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
         progress,
         duration,
         volume,
+        playbackRate,
         repeatMode,
         playAyah,
         pause,
@@ -219,6 +234,7 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
         prevAyah,
         seekTo,
         setVolume,
+        setPlaybackRate,
         toggleRepeat,
       }}
     >

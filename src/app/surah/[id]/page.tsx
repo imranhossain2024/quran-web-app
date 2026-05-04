@@ -28,18 +28,18 @@ export default async function SurahPage({ params }: PageProps) {
   const { surah, ayahs } = data;
 
   return (
-    <div className="p-6 lg:p-10 max-w-5xl mx-auto mb-20 relative">
+    <div className="p-4 sm:p-6 lg:p-10 max-w-5xl mx-auto mb-20 relative">
       {/* Surah Header Card */}
       <div className="relative overflow-hidden rounded-3xl bg-emerald-600 p-8 lg:p-12 text-white mb-10 shadow-2xl shadow-emerald-500/20">
         <div className="absolute right-0 top-0 opacity-10 pointer-events-none translate-x-1/4 -translate-y-1/4">
-           <span className="text-[12rem] font-arabic leading-none">{surah.name.replace("سُورَةُ ", "")}</span>
+           <span className="text-[8rem] md:text-[12rem] font-arabic leading-none">{surah.name.replace("سُورَةُ ", "")}</span>
         </div>
         
         <div className="relative z-10 text-center">
           <p className="text-sm font-bold uppercase tracking-[0.3em] mb-4 opacity-80">
             Surah No. {surah.number}
           </p>
-          <h1 className="text-4xl lg:text-6xl font-arabic mb-6 tracking-wide drop-shadow-md">
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-arabic mb-6 tracking-wide drop-shadow-md">
             {surah.name}
           </h1>
           <div className="flex flex-col items-center gap-2">
@@ -70,8 +70,8 @@ export default async function SurahPage({ params }: PageProps) {
 
       {/* Bismillah */}
       {parseInt(id) !== 1 && parseInt(id) !== 9 && (
-        <div className="text-center mb-16">
-          <p className="text-4xl font-arabic text-slate-200 drop-shadow-sm">
+        <div className="text-center mb-10 md:mb-16">
+          <p className="text-3xl sm:text-4xl font-arabic text-slate-200 drop-shadow-sm">
             بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
           </p>
         </div>
@@ -83,12 +83,12 @@ export default async function SurahPage({ params }: PageProps) {
           <div 
             key={ayah.id} 
             id={`ayah-${ayah.numberInSurah}`}
-            className="group p-8 rounded-3xl bg-slate-900/40 border border-slate-800/50 hover:bg-slate-900/60 hover:border-emerald-500/20 transition-all duration-300 shadow-sm scroll-mt-32"
+            className="group p-5 sm:p-8 rounded-3xl bg-slate-900/40 border border-slate-800/50 hover:bg-slate-900/60 hover:border-emerald-500/20 transition-all duration-300 shadow-sm scroll-mt-32"
           >
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-6 sm:gap-8">
               {/* Ayah Meta & Action */}
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-4">
+              <div className="flex flex-col md:flex-row justify-between gap-6 md:gap-4 md:items-center">
+                <div className="flex items-center gap-3 sm:gap-4 self-start md:self-auto">
                    <AyahNumber number={ayah.numberInSurah} />
                    <PlayAudioButton ayah={ayah} />
                    <FavoriteButton 
@@ -99,13 +99,13 @@ export default async function SurahPage({ params }: PageProps) {
                 </div>
                 
                 {/* Arabic Text (Right Aligned) */}
-                <p className="font-arabic text-right leading-[2.5] text-slate-100 flex-1 ml-10">
+                <p className="font-arabic text-right leading-[2.5] text-slate-100 flex-1 md:ml-10">
                    {ayah.text}
                 </p>
               </div>
 
               {/* Translation (Left Aligned) */}
-              <div className="pl-14 border-l-2 border-emerald-500/10 py-2">
+              <div className="pl-4 sm:pl-14 border-l-2 border-emerald-500/10 py-2">
                 <p className="font-translation text-slate-400 leading-relaxed font-medium">
                   {ayah.translation}
                 </p>

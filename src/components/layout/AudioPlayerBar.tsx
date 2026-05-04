@@ -20,6 +20,7 @@ export default function AudioPlayerBar() {
     progress,
     duration,
     volume,
+    playbackRate,
     repeatMode,
     pause,
     resume,
@@ -27,6 +28,7 @@ export default function AudioPlayerBar() {
     prevAyah,
     seekTo,
     setVolume,
+    setPlaybackRate,
     toggleRepeat,
   } = useAudioPlayer();
 
@@ -49,18 +51,33 @@ export default function AudioPlayerBar() {
   const progressPercent = duration > 0 ? (progress / duration) * 100 : 0;
   const volumePercent = volume * 100;
 
+  const handleSpeedChange = () => {
+    const rates = [1, 1.25, 1.5, 2];
+    const currentIndex = rates.indexOf(playbackRate);
+    const nextRate = rates[(currentIndex + 1) % rates.length];
+    setPlaybackRate(nextRate);
+  };
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[#0A0A0A]/95 backdrop-blur-2xl border-t border-white/5 px-6 py-4 z-[60] flex items-center justify-between transform transition-transform translate-y-0">
-       <div className="flex items-center gap-4 w-1/4">
+    <div className="fixed bottom-[4.5rem] md:bottom-0 left-0 right-0 bg-[#0A0A0A]/95 backdrop-blur-2xl border-t border-white/5 px-4 md:px-6 py-3 md:py-4 z-[60] flex flex-wrap md:flex-nowrap items-center justify-between gap-3 md:gap-0 transform transition-transform translate-y-0">
+       <div className="flex items-center gap-4 w-full md:w-1/4 order-1 md:order-none justify-between md:justify-start">
           <div>
             <div className="text-sm font-bold truncate max-w-[200px]">
               {currentSurah.englishName} : {currentAyah.numberInSurah}
             </div>
             <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Alafasy</div>
           </div>
+          <div className="md:hidden flex items-center gap-2">
+             <button onClick={handleSpeedChange} className="text-xs font-mono font-bold text-slate-400 hover:text-white px-2 py-1 rounded bg-white/5">
+                {playbackRate}x
+             </button>
+             <button onClick={() => setVolume(volume > 0 ? 0 : 1)} className="text-slate-500 hover:text-white p-2">
+               {volume === 0 ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+             </button>
+          </div>
        </div>
        
-       <div className="flex flex-col items-center gap-3 flex-1 max-w-2xl">
+       <div className="flex flex-col items-center gap-2 md:gap-3 flex-1 w-full md:w-auto order-3 md:order-none max-w-2xl">
           <div className="flex items-center gap-8">
              <button 
                 onClick={toggleRepeat}
@@ -116,8 +133,11 @@ export default function AudioPlayerBar() {
           </div>
        </div>
 
-       <div className="flex items-center justify-end w-1/4 pr-4">
+       <div className="hidden md:flex items-center justify-end w-1/4 pr-4 order-2 md:order-none">
           <div className="flex items-center gap-3">
+             <button onClick={handleSpeedChange} className="text-xs font-mono font-bold text-slate-400 hover:text-white px-2 py-1 rounded bg-white/5 mr-2">
+                {playbackRate}x
+             </button>
              <button onClick={() => setVolume(volume > 0 ? 0 : 1)} className="text-slate-500 hover:text-white transition-colors">
                {volume === 0 ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
              </button>

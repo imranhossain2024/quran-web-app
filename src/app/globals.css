@@ -34,10 +34,28 @@ body {
 
   .font-arabic {
     font-family: var(--arabic-font);
-    font-size: var(--arabic-font-size);
+    font-size: calc(var(--arabic-font-size) * 0.7);
   }
 
   .font-translation {
-    font-size: var(--translation-font-size);
+    font-size: calc(var(--translation-font-size) * 0.85);
+  }
+
+  @media (min-width: 768px) {
+    .font-arabic {
+      font-size: calc(var(--arabic-font-size) * 0.85);
+    }
+    .font-translation {
+      font-size: calc(var(--translation-font-size) * 0.95);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .font-arabic {
+      font-size: var(--arabic-font-size);
+    }
+    .font-translation {
+      font-size: var(--translation-font-size);
+    }
   }
 }
