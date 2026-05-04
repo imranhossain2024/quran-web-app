@@ -112,43 +112,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bottom Player Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#0A0A0A]/95 backdrop-blur-2xl border-t border-white/5 px-6 py-4 z-[60] flex items-center justify-between">
-         <div className="flex items-center gap-4 w-1/4">
-            <div className="text-sm font-bold">Al Baqarah : 6</div>
-            <div className="text-[10px] text-slate-500 uppercase tracking-widest">Alafasy</div>
-         </div>
-         
-         <div className="flex flex-col items-center gap-3 flex-1 max-w-2xl">
-            <div className="flex items-center gap-8">
-               <button className="text-slate-500 hover:text-white transition-colors"><Repeat className="w-4 h-4" /></button>
-               <button className="text-slate-200 hover:text-emerald-500 transition-colors"><SkipBack className="w-6 h-6 fill-current" /></button>
-               <button className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center text-white hover:scale-110 transition-all shadow-lg shadow-emerald-600/20">
-                  <Play className="w-6 h-6 fill-current translate-x-0.5" />
-               </button>
-               <button className="text-slate-200 hover:text-emerald-500 transition-colors"><SkipForward className="w-6 h-6 fill-current" /></button>
-               <button className="text-slate-500 hover:text-white transition-colors"><MoreHorizontal className="w-4 h-4" /></button>
-            </div>
-            <div className="w-full flex items-center gap-4">
-               <span className="text-[10px] font-mono text-slate-500">00:48</span>
-               <div className="flex-1 h-1 bg-white/5 rounded-full relative group cursor-pointer">
-                  <div className="absolute top-0 left-0 h-full w-1/3 bg-emerald-600 rounded-full">
-                     <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg" />
-                  </div>
-               </div>
-               <span className="text-[10px] font-mono text-slate-500">01:39:12</span>
-            </div>
-         </div>
 
-         <div className="flex items-center justify-end gap-6 w-1/4">
-            <div className="flex items-center gap-3">
-               <Volume2 className="w-4 h-4 text-slate-500" />
-               <div className="w-24 h-1 bg-white/5 rounded-full">
-                  <div className="h-full w-2/3 bg-emerald-600 rounded-full" />
-               </div>
-            </div>
-         </div>
-      </div>
     </div>
   );
 }

@@ -56,7 +56,7 @@ export default function FavoritesPage() {
                        </div>
                     </div>
                     <div className="flex items-center gap-2">
-                       <PlayAudioButton url={ayah.audio} />
+                       <PlayAudioButton ayah={ayah} />
                        <button
                           onClick={() => toggleFavorite(ayah, ayah.surahName, ayah.surahNumber)}
                           className="p-2 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500 hover:text-white transition-all"

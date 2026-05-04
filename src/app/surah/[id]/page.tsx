@@ -90,7 +90,7 @@ export default async function SurahPage({ params }: PageProps) {
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-4">
                    <AyahNumber number={ayah.numberInSurah} />
-                   <PlayAudioButton url={ayah.audio} />
+                   <PlayAudioButton ayah={ayah} />
                    <FavoriteButton 
                       ayah={ayah} 
                       surahName={surah.englishName} 

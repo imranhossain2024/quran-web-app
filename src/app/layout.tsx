@@ -6,6 +6,8 @@ import LayoutWrapper from "@/components/layout/LayoutWrapper";
 import { SettingsProvider } from "@/context/SettingsContext";
 import { SearchProvider } from "@/context/SearchContext";
 import { FavoritesProvider } from "@/context/FavoritesContext";
+import { AudioPlayerProvider } from "@/context/AudioPlayerContext";
+import AudioPlayerBar from "@/components/layout/AudioPlayerBar";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({ weight: ["400", "700"], subsets: ["arabic"], variable: "--font-amiri" });
@@ -27,12 +29,17 @@ export default function RootLayout({
         <SettingsProvider>
           <SearchProvider>
             <FavoritesProvider>
-              <LayoutWrapper>
-                {children}
-              </LayoutWrapper>
+              <AudioPlayerProvider>
+                <LayoutWrapper>
+                  {children}
+                </LayoutWrapper>
 
-              {/* Settings Panel Toggle & Sidebar */}
-              <SettingsPanel />
+                {/* Settings Panel Toggle & Sidebar */}
+                <SettingsPanel />
+                
+                {/* Global Audio Player Bar */}
+                <AudioPlayerBar />
+              </AudioPlayerProvider>
             </FavoritesProvider>
           </SearchProvider>
         </SettingsProvider>
