@@ -12,8 +12,8 @@ export default function EidCountdown() {
   });
 
   useEffect(() => {
-    // Target Date: June 16, 2026 (Approximate Eid-ul-Adha 2026)
-    const targetDate = new Date("June 16, 2026 00:00:00").getTime();
+    // Target Date: May 27, 2026 (Eid-ul-Adha 2026 in Bangladesh)
+    const targetDate = new Date("May 27, 2026 00:00:00").getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();

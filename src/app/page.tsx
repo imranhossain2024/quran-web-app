@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Search, Globe, Settings, Heart, MapPin, Calendar, Clock, Play, SkipBack, SkipForward, Repeat, Volume2, MoreHorizontal, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { useSearch } from "@/context/SearchContext";
@@ -8,6 +8,22 @@ import EidCountdown from "@/components/modules/home/EidCountdown";
 
 export default function Home() {
   const { openSearch } = useSearch();
+  const [location, setLocation] = useState("LOCATING...");
+
+  React.useEffect(() => {
+    fetch("https://ipapi.co/json/")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.city && data.country_name) {
+          setLocation(`${data.city}, ${data.country_name}`.toUpperCase());
+        } else {
+          setLocation("SATKHIRA, BANGLADESH");
+        }
+      })
+      .catch(() => {
+        setLocation("SATKHIRA, BANGLADESH");
+      });
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#050805] text-white font-sans relative overflow-x-hidden">
@@ -65,7 +81,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-slate-400 font-bold uppercase tracking-[0.2em] text-xs">
           <div className="flex items-center gap-2">
             <MapPin className="w-4 h-4 text-emerald-500" />
-            SATKHIRA, BANGLADESH
+            {location}
           </div>
           <span className="hidden md:inline text-slate-700">|</span>
           <div className="flex items-center gap-2">
